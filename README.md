@@ -1,4 +1,3 @@
-# react-web-map
 ## Task: Create a web page with the following features: <br>
 1. A button to allow users to acquire their current location from their browser. <br>
 2. A search module that lets users input the name of a location. The search feature is triggered by both button clicks and pressing the enter key on the keyboard. <br>
