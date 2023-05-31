@@ -60,6 +60,6 @@
   </script>
   
   <style scoped>
-  /* Add custom styles as per your design requirements */
+
   </style>
   

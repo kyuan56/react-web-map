@@ -28,7 +28,7 @@ export default {
         const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
           params: {
           address: location,
-          key: 'AIzaSyCVbloKI9BQXtE10a4LSSHrBmT24KKZ4XY', // Replace with your actual Google Maps API key
+          key: 'AIzaSyCVbloKI9BQXtE10a4LSSHrBmT24KKZ4XY', 
       },
         });
 
@@ -89,6 +89,6 @@ export default {
 
 
 <style scoped>
-/* Add custom styles as per your design requirements */
+
 </style>
 

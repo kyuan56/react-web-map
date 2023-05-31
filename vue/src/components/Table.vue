@@ -4,9 +4,9 @@
     <table>
       <thead>
         <tr>
-          <th></th> <!-- Checkbox column -->
+          <th></th> 
           <th>Location</th>
-          <!-- Add more table headers as needed -->
+         
         </tr>
       </thead>
       <tbody>

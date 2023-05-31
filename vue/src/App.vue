@@ -48,7 +48,7 @@ export default {
       this.longitude = location.longitude;
       
 
-      // Pass the updated data to the Map component
+      
     },
 
     deleteLocations(stuff) {
