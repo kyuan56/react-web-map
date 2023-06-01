@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <Search @searched="updateSearch" @getCurrentLocation="mapCurrentLocation" />
-    <Map :latitude="latitude" :longitude="longitude" :locations="locations" :current="current" @reset-coordinates="resetcord" />
-    <Table :places="locations" @delete="deleteLocations" />
-    <Timeze :locations="locations" />
+    <Search @searched="handleSearch" @getCurrentLocation="mapCurrentLocation" />
+    <Map :latitude="latitude" :longitude="longitude" :locations="locations" :current="current" @reset-coordinates="resetCoordinates" />
+    <Table :places="locations" @delete="removeLocations" />
+    <Timezone :locations="locations" />
   </div>
 </template>
 
@@ -11,15 +11,14 @@
 import Search from './components/Search.vue';
 import Map from './components/Map.vue';
 import Table from './components/Table.vue';
-import Timeze from './components/Timeze.vue';
-
+import Timezone from './components/Timezone.vue';
 
 export default {
   components: {
     Search,
     Map,
     Table,
-    Timeze,
+    Timezone,
   },
   data() {
     return {
@@ -30,38 +29,26 @@ export default {
     };
   },
   methods: {
-    updateSearch(location) {
-      this.current=false
+    handleSearch(location) {
+      this.current = false;
       this.latitude = location.latitude;
       this.longitude = location.longitude;
       this.locations.push({
         name: location.location,
         latitude: location.latitude,
         longitude: location.longitude,
-      })
-      
-
-      
-
+      });
     },
-    resetcord()
-    {
+    resetCoordinates() {
       this.latitude = null;
       this.longitude = null;
     },
     mapCurrentLocation(location) {
-      // Update the latitude and longitude data
-      this.current=true
+      this.current = true;
       this.latitude = location.latitude;
       this.longitude = location.longitude;
-      
-      
-
-      
     },
-
-    deleteLocations(stuff) {
-      // Filter out the selected locations and update the array
+    removeLocations(stuff) {
       this.locations = this.locations.filter(location => !stuff.includes(location.name));
     },
   },
