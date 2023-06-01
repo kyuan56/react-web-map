@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Search @searched="updateSearch" @getCurrentLocation="mapCurrentLocation" />
-    <Map :latitude="latitude" :longitude="longitude" :locations="locations" />
+    <Map :latitude="latitude" :longitude="longitude" :locations="locations" :current="current" @reset-coordinates="resetcord" />
     <Table :places="locations" @delete="deleteLocations" />
     <Timeze :locations="locations" />
   </div>
@@ -26,10 +26,12 @@ export default {
       latitude: null,
       longitude: null,
       locations: [],
+      current: false,
     };
   },
   methods: {
     updateSearch(location) {
+      this.current=false
       this.latitude = location.latitude;
       this.longitude = location.longitude;
       this.locations.push({
@@ -37,15 +39,22 @@ export default {
         latitude: location.latitude,
         longitude: location.longitude,
       })
+      
 
       
 
     },
-
+    resetcord()
+    {
+      this.latitude = null;
+      this.longitude = null;
+    },
     mapCurrentLocation(location) {
       // Update the latitude and longitude data
+      this.current=true
       this.latitude = location.latitude;
       this.longitude = location.longitude;
+      
       
 
       

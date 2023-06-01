@@ -3,8 +3,9 @@
 </template>
 
 <script>
+import {toRaw} from 'vue';
 export default {
-  props: ['latitude', 'longitude','locations'],
+  props: ['latitude', 'longitude','locations','current'],
 
   data() {
     return {
@@ -42,7 +43,7 @@ export default {
           resolve();
         } else {
           const script = document.createElement('script');
-          script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCVbloKI9BQXtE10a4LSSHrBmT24KKZ4XY&libraries=places`;
+          script.src = `https://maps.googleapis.com/maps/api/js?key=api-key&libraries=places`;
           script.onload = resolve;
           script.onerror = reject;
           document.head.appendChild(script);
@@ -82,38 +83,49 @@ export default {
       if (!isDuplicate) {
         const marker = new window.google.maps.Marker({
           position: newMarkerPosition,
-          map: this.map,
+          map: this.map,  
           title: 'Searched Location',
         });
+        if (!this.current){
+        marker.latLng = newMarkerPosition;
         this.markers.push(marker);  // Add the new marker to the markers array
+        
+        }
       }
-      console.log('Number of markers:', this.markers.length);
+      
     },
     updateMap() {
       if (this.latitude && this.longitude) {
         this.map.setCenter({ lat: this.latitude, lng: this.longitude });
         this.addMarker();
+        console.log('Number of markers:', this.markers.length);
       }
     },
     removeMarker() {
-     
+      
       if (this.locations && this.locations.length > 0) {
-       
-        const locationsSet = new Set(this.locations.map(location => location.name));
+        console.log('start');
+        const locationsSet = new Set(this.locations.map(location => `${location.latitude},${location.longitude}`));
         for (let i = this.markers.length - 1; i >= 0; i--) {
           const marker = this.markers[i];
-          if (!locationsSet.has(marker.getTitle())) {
-            marker.setMap(null); // Remove the marker from the map
-            this.markers.splice(i, 1); // Remove the marker from the markers array
+          const markerLatLng = `${marker.latLng.lat},${marker.latLng.lng}`;
+          if (!locationsSet.has(markerLatLng)) {
+            // Remove the marker from the map and the markers array
+            toRaw(marker).setMap(null);
+            this.markers.splice(i, 1);
           }
         }
+        
       } 
+      
       else {
-    // Remove all markers from the map and clear the markers array
+     // Remove all markers from the map and clear the markers array
     
-      this.markers.forEach(marker => marker.setMap(null));
+      this.markers.map((marker) => toRaw(marker).setMap(null))
       this.markers = [];
       }
+      this.$emit('reset-coordinates');
+      console.log('after remove, Number of markers:', this.markers.length);
     },
   },
 };

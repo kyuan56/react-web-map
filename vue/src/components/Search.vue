@@ -28,7 +28,7 @@ export default {
         const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
           params: {
           address: location,
-          key: 'AIzaSyCVbloKI9BQXtE10a4LSSHrBmT24KKZ4XY', 
+          key: 'api-key', 
       },
         });
 

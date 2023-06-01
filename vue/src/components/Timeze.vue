@@ -33,7 +33,7 @@
             params: {
               location: `${lastLocation.latitude},${lastLocation.longitude}`,
               timestamp: Math.floor(Date.now() / 1000),
-              key: 'AIzaSyCVbloKI9BQXtE10a4LSSHrBmT24KKZ4XY',
+              key: 'api-key',
             },
           })
           .then(response => {
