@@ -34,19 +34,21 @@ export default {
             params: {
               location: `${lastLocation.latitude},${lastLocation.longitude}`,
               timestamp: Math.floor(Date.now() / 1000),
-              key: 'api-key',
+              key: 'AIzaSyAZwWrFX929IUJ6fTsY2AuNF3t-Sh0N818',
             },
           })
           .then(response => {
             if (response.data.status === 'OK') {
-              const { dstOffset, rawOffset } = response.data;
-              const localTimestamp = Math.floor(Date.now() / 1000) + dstOffset + rawOffset;
-              const date = new Date(localTimestamp * 1000);
-              const hours = date.getHours();
-              const minutes = ('0' + date.getMinutes()).substr(-2);
-              const seconds = ('0' + date.getSeconds()).substr(-2);
-              const formattedTime = hours + ':' + minutes + ':' + seconds;
-              this.localTime = formattedTime;
+              const { timeZoneId } = response.data;
+              const date = new Date();
+              const options = { 
+              hour: '2-digit', 
+              minute: '2-digit', 
+              second: '2-digit', 
+              timeZone: timeZoneId 
+              };
+              const formatter = new Intl.DateTimeFormat('en-US', options);
+              this.localTime = formatter.format(date);
               this.timeZone = response.data.timeZoneName;
             }
           })

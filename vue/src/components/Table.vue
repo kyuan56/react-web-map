@@ -1,12 +1,10 @@
-<!-- Table.vue -->
 <template>
   <div>
     <table>
       <thead>
         <tr>
-          <th></th> 
+          <th></th>
           <th>Location</th>
-         
         </tr>
       </thead>
       <tbody>
@@ -76,7 +74,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>
-
